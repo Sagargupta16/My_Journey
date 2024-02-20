@@ -88,7 +88,7 @@ const NavBar = () => {
 					))}
 				</div>
 				{isAuthenticated && (
-					<button className={classes['nav__signout']} aria-label="Sign Out" onClick={onSignOutClick}>
+					<button className={`btn btn-danger ${classes['nav__signout']}`} aria-label="Sign Out" onClick={onSignOutClick}>
 						<PiSignOutBold /> <span>Sign Out</span>
 					</button>
 				)}
@@ -100,7 +100,9 @@ const NavBar = () => {
 				message="Are you sure you want to sign out?"
 				buttonTitle="Sign Out"
 			/>
-			<Outlet />
+			<div className={classes['nav__outlet']}>
+				<Outlet />
+			</div>
 		</div>
 	);
 };
