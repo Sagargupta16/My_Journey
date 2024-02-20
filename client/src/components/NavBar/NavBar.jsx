@@ -70,12 +70,12 @@ const NavBar = () => {
 
 	const onConfirmSignOut = () => {
 		localStorage.removeItem('token');
-		navigate('/');
+		navigate('/auth');
 		closeModal();
 	};
 
 	return (
-		<>
+		<div className={classes.page}>
 			<nav className={classes.nav}>
 				<NavLink to="/" aria-label="Home" className={classes['nav__logo']}>
 					<span>My Journey</span>
@@ -83,25 +83,25 @@ const NavBar = () => {
 				<div className={classes['nav__list']}>
 					{navItems.map((item) => (
 						<NavLink to={item.to} className={({ isActive }) => (isActive ? classes.active : undefined)} aria-label={item.label} key={item.to}>
-							{item.icon}
+							{item.icon} <span>{item.label}</span>
 						</NavLink>
 					))}
-					{isAuthenticated && (
-						<button className={classes['nav__signout']} aria-label="Sign Out" onClick={onSignOutClick}>
-							<PiSignOutBold />
-						</button>
-					)}
-					<Modal
-						isOpen={isModalOpen}
-						onClose={closeModal}
-						onConfirm={onConfirmSignOut}
-						message="Are you sure you want to sign out?"
-						buttonTitle="Sign Out"
-					/>
 				</div>
+				{isAuthenticated && (
+					<button className={classes['nav__signout']} aria-label="Sign Out" onClick={onSignOutClick}>
+						<PiSignOutBold /> <span>Sign Out</span>
+					</button>
+				)}
 			</nav>
+			<Modal
+				isOpen={isModalOpen}
+				onClose={closeModal}
+				onConfirm={onConfirmSignOut}
+				message="Are you sure you want to sign out?"
+				buttonTitle="Sign Out"
+			/>
 			<Outlet />
-		</>
+		</div>
 	);
 };
 

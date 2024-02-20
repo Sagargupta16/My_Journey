@@ -11,6 +11,10 @@ import { checkAuthAction, getAuthToken } from './utils/auth';
 const App = () => {
 	const router = createBrowserRouter([
 		{
+			path: 'auth',
+			element: <Authentication />
+		},
+		{
 			path: '/',
 			element: <NavBar />,
 			id: 'root',
@@ -18,16 +22,13 @@ const App = () => {
 			children: [
 				{
 					index: true,
-					element: <Home />
+					element: <Home />,
+					loader: checkAuthAction
 				},
 				{
 					path: 'profile',
 					element: <Profile />,
 					loader: checkAuthAction
-				},
-				{
-					path: 'auth',
-					element: <Authentication />
 				}
 			]
 		},
