@@ -16,7 +16,7 @@ exports.postSignup = async (req, res) => {
 			return res.status(400).json({
 				errors: ['User with the same email already exists']
 			});
-		
+
 		if (user.password.length < 6 || !/[a-z]/.test(user.password) || !/[A-Z]/.test(user.password) || !/\d/.test(user.password)) {
 			return res.status(401).json({
 				errors: ['Password must be atleast 6 characters long and contain atleast one uppercase, one lowercase and one numeric character.']
@@ -25,7 +25,6 @@ exports.postSignup = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(user.password, Number(process.env.JWT_SALT_ROUNDS));
 		user.password = hashedPassword;
-
 
 		await new User(user).save();
 		logger.info(`New user created: ${user.email}`);
